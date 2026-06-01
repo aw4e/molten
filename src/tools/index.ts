@@ -6,6 +6,10 @@ import { registerExplainTool } from "./explain.js";
 import { registerPatternsTool } from "./patterns.js";
 import { registerNansenTool } from "./nansen.js";
 import { registerExplorerTool } from "./explorer.js";
+import { registerCompareTool } from "./compare.js";
+import { registerGenerateTestsTool } from "./generate-tests.js";
+import { registerDecodeCalldataTool } from "./decode-calldata.js";
+import { registerEstimateDeployTool } from "./estimate-deploy.js";
 
 export function registerAllTools(server: McpServer): void {
   registerAuditTool(server);
@@ -15,4 +19,8 @@ export function registerAllTools(server: McpServer): void {
   registerPatternsTool(server);
   registerNansenTool(server);
   registerExplorerTool(server);
+  registerCompareTool(server);
+  registerGenerateTestsTool(server);
+  registerDecodeCalldataTool(server);
+  registerEstimateDeployTool(server);
 }
