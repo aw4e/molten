@@ -7,8 +7,8 @@ Post a **Thread on X** with `#MantleAIHackathon` containing:
 | # | Required | Status |
 |---|----------|--------|
 | 1 | Pitch | ✅ Ready below |
-| 2 | Demo video | ❌ Need to record |
-| 3 | GitHub link | ❌ Need to push repo |
+| 2 | Demo video | ⏳ Need to record |
+| 3 | GitHub link | ✅ https://github.com/aw4e/molten |
 | 4 | Mantle contract address | ✅ `0xe09155ea5efb809e7b6a16c63ef554fb8f2b4fda` (Mantle Sepolia) |
 
 **Deadline:** June 15, 2026  
@@ -70,15 +70,15 @@ Post a **Thread on X** with `#MantleAIHackathon` containing:
 > 
 > Built with:
 > - MCP protocol → works in Claude Desktop, Cursor, VS Code
-> - @Tencent Hunyuan integrated as AI provider (+ Anthropic, OpenAI, Gemini)
+> - @Tencent Hunyuan + @MiMo (Xiaomi) integrated as AI providers (+ Anthropic, OpenAI, Gemini)
 > - @Nansen_AI wallet intelligence API
 > - @MantleBlockchain Explorer verified source API
 > - TypeScript strict mode, Zod validation, viem
 > 
-> GitHub: [YOUR_LINK]
+> GitHub: https://github.com/aw4e/molten
 > Contract: `0xe09155ea5efb809e7b6a16c63ef554fb8f2b4fda` (Mantle Sepolia)
 > 
-> Demo: [VIDEO_LINK]
+> Demo: [VIDEO_LINK — isi setelah upload]
 
 ---
 

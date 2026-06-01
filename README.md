@@ -92,6 +92,7 @@ Switch providers by setting `AI_PROVIDER` in the env:
 | `openai` | `OPENAI_API_KEY` | gpt-4o |
 | `gemini` | `GEMINI_API_KEY` | gemini-2.5-flash |
 | `tencent-hunyuan` | `TENCENT_HUNYUAN_API_KEY` | hunyuan-pro |
+| `mimo` | `MIMO_API_KEY` | mimo-v2.5-pro |
 
 ## Environment Variables
 
@@ -116,7 +117,7 @@ MANTLE_SEPOLIA_RPC_URL=https://rpc.sepolia.mantle.xyz
 ## Local Development
 
 ```bash
-git clone <repo>
+git clone https://github.com/aw4e/molten.git
 cd molten
 npm install
 cp .env.example .env   # fill in at least one AI provider key
@@ -174,7 +175,7 @@ System prompts encode Mantle-specific knowledge:
 - **Runtime**: Node.js 18+ · TypeScript strict · ESM
 - **MCP**: `@modelcontextprotocol/sdk`
 - **Chain**: `viem` — Mantle mainnet + Sepolia clients
-- **AI**: Anthropic · OpenAI · Google Gemini · Tencent Hunyuan
+- **AI**: Anthropic · OpenAI · Google Gemini · Tencent Hunyuan · MiMo (Xiaomi)
 - **Validation**: Zod
 - **Intelligence**: Nansen AI API · Mantle Explorer (Blockscout) API
 
