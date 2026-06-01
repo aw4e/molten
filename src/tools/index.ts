@@ -10,6 +10,7 @@ import { registerCompareTool } from "./compare.js";
 import { registerGenerateTestsTool } from "./generate-tests.js";
 import { registerDecodeCalldataTool } from "./decode-calldata.js";
 import { registerEstimateDeployTool } from "./estimate-deploy.js";
+import { registerGasPriceTool } from "./gas-price.js";
 
 export function registerAllTools(server: McpServer): void {
   registerAuditTool(server);
@@ -23,4 +24,5 @@ export function registerAllTools(server: McpServer): void {
   registerGenerateTestsTool(server);
   registerDecodeCalldataTool(server);
   registerEstimateDeployTool(server);
+  registerGasPriceTool(server);
 }
