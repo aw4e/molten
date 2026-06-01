@@ -16,10 +16,14 @@ Check the provided Solidity contract for compliance with the specified Mantle pa
 - "meth": mETH (Mantle ETH staking) integration patterns — correct interface, unstaking delays, slashing handling
 - "layerzero": LayerZero cross-chain messaging on Mantle — correct endpoint usage, gas configuration, retry logic
 - "general": General Mantle L2 best practices — L1 fee awareness, block time handling, MNT gas token usage
+- "agni": Agni Finance DEX integration (Uniswap V3 fork on Mantle) — correct pool interface, tick math, callback safety, reentrancy guards on swap callbacks
+- "merchant_moe": Merchant Moe DEX integration (Trader Joe V2 / LB protocol on Mantle) — LBPair bin logic, flash loan callbacks, liquidity book interface correctness
+- "fbtc": FBTC (Ignition wrapped Bitcoin on Mantle) integration — correct mint/burn/bridge interface, fee handling, custodian confirmation patterns
+- "lendle": Lendle lending protocol integration (Aave V2 fork on Mantle) — correct aToken/debtToken interfaces, health factor checks, liquidation logic, interest rate model assumptions
 
 Respond ONLY with JSON:
 {
-  "pattern": "rwa" | "meth" | "layerzero" | "general",
+  "pattern": "rwa" | "meth" | "layerzero" | "general" | "agni" | "merchant_moe" | "fbtc" | "lendle",
   "compliant": boolean,
   "issues": [
     {
@@ -38,8 +42,8 @@ export function registerPatternsTool(server: McpServer): void {
     {
       source_code: z.string().min(10).describe("Solidity source code to check"),
       pattern: z
-        .enum(["rwa", "meth", "layerzero", "general"])
-        .describe("Pattern to check: rwa | meth | layerzero | general"),
+        .enum(["rwa", "meth", "layerzero", "general", "agni", "merchant_moe", "fbtc", "lendle"])
+        .describe("Pattern to check: rwa | meth | layerzero | general | agni | merchant_moe | fbtc | lendle"),
     },
     async ({ source_code, pattern }): Promise<CallToolResult> => {
       try {
@@ -57,6 +61,10 @@ export function registerPatternsTool(server: McpServer): void {
           meth: "mETH Staking",
           layerzero: "LayerZero Bridge",
           general: "General Mantle L2",
+          agni: "Agni Finance DEX",
+          merchant_moe: "Merchant Moe DEX",
+          fbtc: "FBTC Integration",
+          lendle: "Lendle Lending Protocol",
         };
 
         const output = [

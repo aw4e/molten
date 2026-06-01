@@ -1,0 +1,54 @@
+name: Molten Contract Audit
+
+on:
+  pull_request:
+    paths:
+      - "**/*.sol"
+  push:
+    branches: [main]
+    paths:
+      - "**/*.sol"
+
+jobs:
+  audit:
+    name: AI Security & Gas Audit (Molten)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Find changed Solidity files
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- '*.sol')
+          else
+            FILES=$(git diff --name-only HEAD~1 HEAD -- '*.sol')
+          fi
+          echo "Found: $FILES"
+          # Space-separated for passing to script
+          echo "files=$(echo $FILES | tr '\n' ' ' | xargs)" >> $GITHUB_OUTPUT
+
+      - name: Run Molten audit
+        if: steps.changed.outputs.files != ''
+        env:
+          AI_PROVIDER: ${{ vars.MOLTEN_AI_PROVIDER || 'anthropic' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          npx tsx scripts/ci-audit.ts ${{ steps.changed.outputs.files }}
+
+      - name: No Solidity changes
+        if: steps.changed.outputs.files == ''
+        run: echo "No .sol files changed — skipping Molten audit"
