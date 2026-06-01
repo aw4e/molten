@@ -1,10 +1,11 @@
 {
-  "name": "molten-mcp",
+  "name": "@awedev/molten-mcp",
   "version": "0.2.0",
   "description": "Molten — AI-powered MCP DevTools for Mantle Network. Contract audit, gas optimization, tx simulation, wallet intelligence, and explorer integration.",
   "type": "module",
   "main": "dist/server.js",
   "bin": {
+    "molten-mcp": "dist/server.js",
     "molten": "dist/server.js"
   },
   "files": [

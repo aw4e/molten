@@ -1,11 +1,11 @@
 <div align="center">
-  <img src="assets/Molten.png" alt="Molten" width="160" />
+  <img src="https://raw.githubusercontent.com/aw4e/molten/master/assets/Molten.png" alt="Molten" width="160" />
 
   # Molten
 
   **AI-powered MCP DevTools for Mantle Network**
 
-  [![npm](https://img.shields.io/npm/v/molten-mcp)](https://www.npmjs.com/package/molten-mcp)
+  [![npm](https://img.shields.io/npm/v/@awedev/molten-mcp)](https://www.npmjs.com/package/@awedev/molten-mcp)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
   [![Mantle](https://img.shields.io/badge/Mantle-Sepolia-blue)](https://explorer.sepolia.mantle.xyz/address/0xe09155ea5efb809e7b6a16c63ef554fb8f2b4fda)
 
@@ -32,13 +32,13 @@ Molten is a [Model Context Protocol](https://modelcontextprotocol.io) server tha
 ## Quick Start
 
 ```bash
-npx molten-mcp
+npx @awedev/molten-mcp
 ```
 
 Or install globally:
 
 ```bash
-npm install -g molten-mcp
+npm install -g @awedev/molten-mcp
 molten-mcp
 ```
 
@@ -53,7 +53,7 @@ Add to `claude_desktop_config.json`:
   "mcpServers": {
     "molten": {
       "command": "npx",
-      "args": ["molten-mcp"],
+      "args": ["@awedev/molten-mcp"],
       "env": {
         "AI_PROVIDER": "anthropic",
         "ANTHROPIC_API_KEY": "sk-ant-..."
@@ -72,7 +72,7 @@ Add to `.cursor/mcp.json` or `.vscode/mcp.json`:
   "servers": {
     "molten": {
       "command": "npx",
-      "args": ["molten-mcp"],
+      "args": ["@awedev/molten-mcp"],
       "env": {
         "AI_PROVIDER": "gemini",
         "GEMINI_API_KEY": "..."

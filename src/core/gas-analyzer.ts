@@ -1,5 +1,6 @@
 import { aiClient, MAX_TOKENS } from "./ai-client.js";
 import { extractJson } from "./json-extract.js";
+import { withRetry } from "./ai/retry.js";
 import { gasCache, makeCacheKey } from "./cache.js";
 import { GAS_SYSTEM_PROMPT } from "../prompts/gas-system.js";
 import type { GasAnalysisResult, RawGasResponse } from "../types/index.js";
@@ -9,13 +10,14 @@ export async function analyzeGas(sourceCode: string): Promise<GasAnalysisResult>
   const cached = gasCache.get(cacheKey);
   if (cached) return cached;
 
-  const text = await aiClient.complete(
-    GAS_SYSTEM_PROMPT,
-    `Analyze gas usage in this contract:\n\`\`\`solidity\n${sourceCode}\n\`\`\``,
-    MAX_TOKENS
-  );
-
-  const raw = JSON.parse(extractJson(text)) as RawGasResponse;
+  const raw = await withRetry(async () => {
+    const text = await aiClient.complete(
+      GAS_SYSTEM_PROMPT,
+      `Analyze gas usage in this contract:\n\`\`\`solidity\n${sourceCode}\n\`\`\``,
+      MAX_TOKENS
+    );
+    return JSON.parse(extractJson(text)) as RawGasResponse;
+  });
 
   const result: GasAnalysisResult = {
     optimizations: raw.optimizations.map((o) => ({

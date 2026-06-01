@@ -123,6 +123,6 @@ Molten is an MCP (Model Context Protocol) server that delivers AI-powered develo
 
 **Sponsor Integration:** Tencent Hunyuan integrated as a swappable AI provider. Nansen AI API powers wallet intelligence. Mantle Explorer API fetches verified source.
 
-**Install:** `npx molten-mcp` — no setup beyond API keys.
+**Install:** `npx @awedev/molten-mcp` — no setup beyond API keys.
 
 Tech: TypeScript · MCP SDK · viem · Zod · Anthropic + OpenAI + Gemini + Tencent Hunyuan · Nansen API · Mantle Explorer API

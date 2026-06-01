@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { aiClient } from "../core/ai-client.js";
 import { extractJson } from "../core/json-extract.js";
+import { withRetry } from "../core/ai/retry.js";
 import type { AiErrorResponse } from "../types/index.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
@@ -31,8 +32,10 @@ export function registerExplainTool(server: McpServer): void {
           ? `Error: ${error}\n\nContext:\n${context}`
           : `Error: ${error}`;
 
-        const text = await aiClient.complete(EXPLAIN_SYSTEM, userContent, 1024);
-        const parsed = JSON.parse(extractJson(text)) as AiErrorResponse;
+        const parsed = await withRetry(async () => {
+          const text = await aiClient.complete(EXPLAIN_SYSTEM, userContent, 1024);
+          return JSON.parse(extractJson(text)) as AiErrorResponse;
+        });
 
         const output = [
           `## Error Explanation`,

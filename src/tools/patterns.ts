@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { aiClient } from "../core/ai-client.js";
 import { extractJson } from "../core/json-extract.js";
+import { withRetry } from "../core/ai/retry.js";
 import type { AiPatternResponse, MantlePatternType } from "../types/index.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
@@ -42,13 +43,14 @@ export function registerPatternsTool(server: McpServer): void {
     },
     async ({ source_code, pattern }): Promise<CallToolResult> => {
       try {
-        const text = await aiClient.complete(
-          PATTERN_SYSTEM,
-          `Check this contract for the "${pattern}" pattern:\n\`\`\`solidity\n${source_code}\n\`\`\``,
-          2048
-        );
-
-        const result = JSON.parse(extractJson(text)) as AiPatternResponse;
+        const result = await withRetry(async () => {
+          const text = await aiClient.complete(
+            PATTERN_SYSTEM,
+            `Check this contract for the "${pattern}" pattern:\n\`\`\`solidity\n${source_code}\n\`\`\``,
+            2048
+          );
+          return JSON.parse(extractJson(text)) as AiPatternResponse;
+        });
 
         const patternLabels: Record<MantlePatternType, string> = {
           rwa: "Real World Asset",
