@@ -5,7 +5,7 @@ import { registerAllTools } from "./tools/index.js";
 
 const server = new McpServer({
   name: "molten",
-  version: "0.2.0",
+  version: "0.3.4",
 });
 
 registerAllTools(server);

@@ -10,8 +10,10 @@ export class TencentHunyuanProvider implements AiProvider {
   private readonly model: string;
 
   constructor() {
+    const key = process.env["TENCENT_HUNYUAN_API_KEY"];
+    if (!key) throw new Error("TENCENT_HUNYUAN_API_KEY is required for Hunyuan provider");
     this.client = new OpenAI({
-      apiKey: process.env["TENCENT_HUNYUAN_API_KEY"] ?? "",
+      apiKey: key,
       baseURL: "https://api.hunyuan.cloud.tencent.com/v1",
     });
     this.model = process.env["TENCENT_HUNYUAN_MODEL"] ?? "hunyuan-pro";

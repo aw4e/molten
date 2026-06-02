@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { simulateTransaction, getGasPrice, getBlockNumber } from "../core/simulator.js";
+import { simulateTransaction, getGasPrice } from "../core/simulator.js";
 import type { Network } from "../types/index.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
@@ -75,33 +75,4 @@ export function registerSimulateTool(server: McpServer): void {
     }
   );
 
-  server.tool(
-    "get_mantle_gas_price",
-    "Get current gas price on Mantle Network.",
-    {
-      network: networkSchema.describe("mainnet or sepolia (default: sepolia)"),
-    },
-    async ({ network }): Promise<CallToolResult> => {
-      try {
-        const [gasPrice, blockNumber] = await Promise.all([
-          getGasPrice(network as Network),
-          getBlockNumber(network as Network),
-        ]);
-
-        const text = [
-          `**Network**: Mantle ${network}`,
-          `**Block**: ${blockNumber.toLocaleString()}`,
-          `**Gas Price**: ${gasPrice.toLocaleString()} wei (${(Number(gasPrice) / 1e9).toFixed(4)} Gwei)`,
-        ].join("\n");
-
-        return { content: [{ type: "text", text }] };
-      } catch (err) {
-        const msg = err instanceof Error ? err.message : "Unknown error";
-        return {
-          content: [{ type: "text", text: `Failed to fetch gas price: ${msg}` }],
-          isError: true,
-        };
-      }
-    }
-  );
 }

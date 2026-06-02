@@ -10,8 +10,10 @@ export class MiMoProvider implements AiProvider {
   private readonly model: string;
 
   constructor() {
+    const key = process.env["MIMO_API_KEY"];
+    if (!key) throw new Error("MIMO_API_KEY is required for MiMo provider");
     this.client = new OpenAI({
-      apiKey: process.env["MIMO_API_KEY"] ?? "",
+      apiKey: key,
       baseURL: "https://token-plan-sgp.xiaomimimo.com/v1",
     });
     this.model = process.env["MIMO_MODEL"] ?? "mimo-v2.5-pro";

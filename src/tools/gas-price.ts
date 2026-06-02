@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { formatGwei, formatEther } from "viem";
+import { formatGwei } from "viem";
 import { getMantleClient } from "../core/mantle-client.js";
 import type { Network } from "../types/index.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";

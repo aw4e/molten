@@ -49,7 +49,8 @@ export function registerDecodeCalldataTool(server: McpServer): void {
         .optional()
         .describe("Optional: JSON ABI string for exact decoding"),
     },
-    async ({ calldata, abi }): Promise<CallToolResult> => {
+    async ({ calldata: rawCalldata, abi }): Promise<CallToolResult> => {
+      const calldata = rawCalldata.toLowerCase();
       // Try deterministic ABI decode first
       if (abi) {
         try {
