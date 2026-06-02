@@ -59,6 +59,7 @@ export function registerGasTool(server: McpServer): void {
       gas_price_gwei: z
         .number()
         .positive()
+        .max(10000)
         .optional()
         .describe("Mantle gas price in gwei for MNT cost estimation (default: 0.02)"),
     },

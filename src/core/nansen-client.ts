@@ -40,29 +40,3 @@ export async function getWalletIntelligence(address: string): Promise<WalletInte
   };
 }
 
-export async function getBatchWalletLabels(
-  addresses: string[],
-): Promise<Map<string, string | null>> {
-  const apiKey = getNansenKey();
-
-  const res = await fetch(`${NANSEN_BASE}/v1/address/labels/batch`, {
-    method: "POST",
-    signal: AbortSignal.timeout(10_000),
-    headers: {
-      "apiKey": apiKey,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ addresses: addresses.map((a) => a.toLowerCase()) }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Nansen batch API ${res.status}: ${res.statusText}`);
-  }
-
-  const data = (await res.json()) as Record<string, { entity?: string }>;
-  const result = new Map<string, string | null>();
-  for (const [addr, info] of Object.entries(data)) {
-    result.set(addr, info.entity ?? null);
-  }
-  return result;
-}

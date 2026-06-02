@@ -114,7 +114,7 @@ export function registerCompareTool(server: McpServer): void {
         if (result.gasRegression) lines.push(`⚠️ Gas regression detected.`);
         if (result.gasImprovement) lines.push(`✅ Gas improved.`);
         if (!result.gasRegression && !result.gasImprovement) lines.push(`No significant gas change.`);
-        lines.push(result.gasSummary);
+        if (result.gasSummary) lines.push(result.gasSummary);
 
         return { content: [{ type: "text", text: lines.join("\n") + DISCLAIMER }] };
       } catch (err) {
